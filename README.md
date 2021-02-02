@@ -8,7 +8,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ```shell
 git clone https://github.com/Surabhi-George/koshex-test.git
-cd dtoc
+cd koshex-test
 ```
 
 ### Install npm packages
