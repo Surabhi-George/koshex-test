@@ -1,0 +1,126 @@
+<section class="min-vh-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 pl-0">
+
+                <!-- <div >Drag me!</div>
+    <div mwlDroppable (drop)="this.droppedData = $event.dropData">
+      <span [hidden]="droppedData">Drop here</span>
+      <span [hidden]="!droppedData"
+        >Item dropped here with data: "{{ droppedData }}"!</span
+      >
+    </div> -->
+
+                <div class="k-box k-lft">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <button class="btn btn-secondary mr-3">Scenario 1</button>
+                            <button class="btn btn-secondary">Scenario 2</button>
+                        </div>
+                        <button class="btn btn-primary">Compare</button>
+                    </div>
+
+                    <!-- chart -->
+                    <div class="drag-container" >
+                        <div  mwlDroppable (drop)="this.droppedData = $event.dropData">
+                            <div id="main" echarts [options]="options" class="demo-chart" style="width:100%"></div>  
+                        </div>
+
+                        <!-- popup add goal -->
+                        <div class="k-ag-wrapper" *ngIf="isModalShow">
+                            <div class="k-ag-modal">
+                                <h6>Add Goal</h6>
+                                <div class="k-ag-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="goalTitle" class="small">Goal Title</label>
+                                            <div class="k-input">
+                                                <img src="assets/img/house.png">
+                                                <input type="text" class="form-control" aria-describedby="GoalTitle" placeholder="Goal Title">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="goalPriority" class="small">Goal Priority</label>
+                                            <nav class="nav nav-pills flex-column flex-sm-row">
+                                                <a class="flex-sm-fill text-sm-center nav-link"  [ngClass]="{'active': view_pills === 1}" (click)="changeTab(1)"><span class="material-icons">volunteer_activism</span> Need</a>
+                                                <a class="flex-sm-fill text-sm-center nav-link" [ngClass]="{'active': view_pills === 2}" (click)="changeTab(2)"><span class="material-icons">favorite</span> Desire</a>
+                                                <a class="flex-sm-fill text-sm-center nav-link" [ngClass]="{'active': view_pills === 3}" (click)="changeTab(3)"><span class="material-icons">cloud</span> Dream</a>
+                                            </nav>
+
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <div class="form-group m-0" style="margin-right: 5px !important;">
+                                                <label for="goalAmount" class="small">Goal Amount</label>
+                                                <div class="k-qty-input">
+                                                    <span class="k-minus" (click)="minusInput(amount)">-</span>
+                                                    <input type="number" class="count" name="amount" value="1" [(ngModel)]="amount" >
+                                                    <span class="k-plus" (click)="plusInput(amount)">+</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-0">
+                                                <label for="goalYear" class="small">Goal Year</label>
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                      <input class="form-control k-date-input" placeholder="YYYY-MM-DD" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()">
+                                                      <div class="input-group-append">
+                                                        <button class="btn calendar"  type="button" (click)="d.toggle()">
+                                                            <span class="material-icons">
+                                                                calendar_today
+                                                                </span>
+                                                        </button>
+                                                      </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="k-ag-footer">
+                                    <button class="btn btn-primary mr-2" (click)="clearModal()">Clear</button>
+                                    <button class="btn btn-primary btn-primary-fill" (click)="saveModal()">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>      
+                </div>
+            </div>
+
+            
+
+
+            <div class="col-sm-3 pl-0">
+                <div class="k-box k-rgt-data p-3">
+                    <img src="assets/img/edit.png" alt="The icon for edit" class="k-edit" width="">
+                    <div class="d-flex">
+                        <div class="mr-5">
+                            <h6>Retire at</h6>
+                            <b>{{kData.retireAt}} age</b>
+                        </div>
+                        <div>
+                            <h6>Financial end</h6>
+                            <b>{{kData.financialEnd}} age</b>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <h6>Retirement new worth</h6>
+                        <h5 class="m-0">{{kData.netWorth}} Lac</h5>
+                    </div>
+                </div>
+                <div class="k-box k-rgt-le mt-3">
+                    <h6 class="m-0">Add life events</h6>
+   
+                    <ul>
+                        <li *ngFor="let data of events" mwlDraggable (dragEnd)="dragEnd($event)">
+                            <div class="k-e-box">
+                                <div>
+                                    <img src="assets/img/{{data.image}}" alt="The icon for life events" width="32" />
+                                    <p>{{data.name}}</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

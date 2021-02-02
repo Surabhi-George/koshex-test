@@ -1,0 +1,87 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";  
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+$fontsize: 16px;
+$fontFamily: 'Poppins', sans-serif;
+
+body {
+    font-size: $fontsize;
+    font-family: $fontFamily;
+    margin: 0;
+}
+
+// Common
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+h6, .h6 {
+    font-size: 14px;
+}
+// BUTTON
+.btn{
+    padding: 7px 15px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0.15px;
+    text-align: center;
+    border: solid 1px rgba(32, 30, 69, 0.16);
+    background-color: #f0f4ff;
+    outline: none !important;
+    box-shadow: none !important;
+    transition: all .5s;
+}
+.btn:hover{
+    box-shadow: 4px 4px 8px 0 rgba(191, 202, 217, 0.9) !important;
+}
+.btn-secondary{
+    color: #201e45;
+}
+.btn-primary{
+    color: #5c85ff;
+}
+.btn-primary-fill{
+    border: solid 1px #5c85ff;
+    background-color: #5c85ff;
+    color: #fff;
+    box-shadow: 4px 4px 8px 0 rgba(191, 202, 217, 0.9) !important;
+}
+// FORM
+.form-control{
+    padding: 5px;
+    border-radius: 6px;
+    box-shadow: inset 2px 2px 4px 0 rgba(15, 31, 77, 0.2), inset -2px -2px 4px 0 #ffffff;
+    background-color: #f0f4ff;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.29;
+    letter-spacing: 0.25px;
+    color: #201e45;
+    min-height: 42px;
+    outline: none !important;
+}
+input{
+    -webkit-appearance: none;
+}
+.form-group {
+    margin-bottom: 10px;
+}
+.k-date-input{
+    padding: 5px 10px;
+}
+.btn.calendar{
+    padding: 0 10px !important;
+    color: #9094ac;
+}
+
+// CHART TOOLTIP
+.k-chart-tooltip p{
+    margin: 0;
+}
