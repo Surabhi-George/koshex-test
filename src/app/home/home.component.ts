@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import * as echarts from 'echarts';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 
@@ -8,21 +8,28 @@ import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
     styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+    @ViewChild("main") divView: ElementRef;
+
     options: any;
     isModalShow : boolean = false;
+    isLifePlanModalShow : boolean = false;
     model: NgbDateStruct;
     droppedData: string;
+    public xData : any = [];
+    public yData : any = [];
+    symbolPath : any = [];
+    echartsInstance: any;
 
     constructor() { }
 
     ngOnInit(): void {
 
-        const yData = [150, 400, 750, 450, 170, 400, 750, 1500, 550, 290,400,90];
-        const xData = [28,32,36,40,44,48,52,56,60,70,80,90];
+        this.yData = [150, 400, 750, 450, 170, 400, 750, 1500, 550, 290,400,90];
+        this.xData = [28,32,36,40,44,48,52,56,60,70,80,90];
 
 
-        var path = ['','assets/img/c_house.png','','','assets/img/c_kids.png','','','assets/img/c_beach.png','assets/img/c_kids.png','','assets/img/c_hospital.png',''];
-
+        this.symbolPath = ['','assets/img/c_house.png','','','assets/img/c_kids.png','','','assets/img/c_beach.png','assets/img/c_kids.png','','assets/img/c_hospital.png',''];
+         var symbolPath1 = this.symbolPath;
         this.options = {
             tooltip: {
                 trigger: 'item',
@@ -37,7 +44,6 @@ export class HomeComponent implements OnInit {
                     fontFamily: 'Poppins' ,
                 },
                 formatter: function (params) {
-                    console.log(params);
                     return `<div>
                         <div class="d-flex">
                             <div style="min-width: 70px;">Age <p style="font-weight: 600;font-size: 12px">${params.name}</p> </div>
@@ -57,7 +63,7 @@ export class HomeComponent implements OnInit {
             responsive: true,
             grid: {
                 left: 50,
-                right: 10
+                right: 20
             },
             toolbox: {
                 show: false
@@ -66,7 +72,7 @@ export class HomeComponent implements OnInit {
                 {
                     type: 'category',
                     boundaryGap: false,
-                    data: xData
+                    data: this.xData
                 }
             ],
             yAxis:{
@@ -91,15 +97,15 @@ export class HomeComponent implements OnInit {
                     sampling: 'lttb',
                     // symbol: 'circle' ,
                     symbol: function(yData,params){
-                        if(path[params.dataIndex] == '' || path[params.dataIndex] == "undefined"){
+                        if(symbolPath1[params.dataIndex] == '' || symbolPath1[params.dataIndex] == "undefined"){
                             
                         }else{
-                            var d = 'image://' + path[params.dataIndex];                   
+                            var d = 'image://' + symbolPath1[params.dataIndex];                   
                             return d;
                         }                        
                     },
                     symbolSize: function(yData,params){
-                        if(path[params.dataIndex] == '' || path[params.dataIndex] == "undefined"){
+                        if(symbolPath1[params.dataIndex] == '' || symbolPath1[params.dataIndex] == "undefined"){
                             return 10;
                         }else{
                             return 33;
@@ -119,7 +125,7 @@ export class HomeComponent implements OnInit {
                             color: 'rgba(92, 133, 255, 0)'
                         }])
                     },
-                    data: yData,
+                    data: this.yData,
                     label: {
                         show: false,
                         position: 'top',
@@ -182,11 +188,9 @@ export class HomeComponent implements OnInit {
     // DRAG & DROP
     dragEnd(event) {
         this.isModalShow = true;
-        console.log('Element was dragged', event); 
     }
     drop(event){
         this.isModalShow = true;
-        console.log('Element was drop', event);
     }
 
     // MODAL CLICKS
@@ -195,8 +199,136 @@ export class HomeComponent implements OnInit {
     }    
     saveModal(){
         this.isModalShow = false;
+        var d = this.xData.slice(-1)[0];
+        this.xData.push(d + 10);
+        this.yData.push(600);
+        this.symbolPath.push('assets/img/c_house.png');
+        var sPath = this.symbolPath;
+
+        this.options = {
+            tooltip: {
+                trigger: 'item',
+                padding: 15,
+                backgroundColor: '#3c3b5d',
+                borderColor: '#3c3b5d' ,
+                className: 'k-chart-tooltip',
+                textStyle: {
+                    color: '#fff' ,
+                    fontSize: 10,
+                    fontWeight: 500 ,
+                    fontFamily: 'Poppins' ,
+                },
+                formatter: function (params) {
+                    return `<div>
+                        <div class="d-flex">
+                            <div style="min-width: 70px;">Age <p style="font-weight: 600;font-size: 12px">${params.name}</p> </div>
+                            <div style="min-width: 70px;">Year<p style="font-weight: 600;font-size: 12px">2020</p> </div>
+                        </div>
+                        <div class="d-flex" style="border-top: solid 1px rgba(32, 30, 69, 0.6);padding-top:10px;margin-top: 10px;">
+                            <div style="min-width: 70px;">Net Worth <p style="font-weight: 600;font-size: 12px">₹ 25 lac</p></div>
+                            <div style="min-width: 70px;">Savings <p style="font-weight: 600;font-size: 12px">₹ 20 lac</p> </div>
+                        </div>
+                    </div>`;
+                }
+            },
+            title: {
+                left: 'center',
+                text: '',
+            },
+            responsive: true,
+            grid: {
+                left: 50,
+                right: 20
+            },
+            toolbox: {
+                show: false
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: this.xData
+                }
+            ],
+            yAxis:{
+                splitLine: {
+                    lineStyle: {
+                        type: 'dashed'
+                    }
+                }
+            },
+            dataZoom: [{
+                type: 'inside',
+                start: 0,
+                end: 100
+            }, {
+                start: 0,
+                end: 10
+            }],
+            series: [
+                {
+                    name: '',
+                    type: 'line',
+                    sampling: 'lttb',
+                    // symbol: 'circle' ,
+                    symbol: function(yData,params){
+                        if(sPath[params.dataIndex] == '' || sPath[params.dataIndex] == "undefined"){
+                            
+                        }else{
+                            var d = 'image://' + sPath[params.dataIndex];                   
+                            return d;
+                        }                        
+                    },
+                    symbolSize: function(yData,params){
+                        if(sPath[params.dataIndex] == '' || sPath[params.dataIndex] == "undefined"){
+                            return 10;
+                        }else{
+                            return 33;
+                        }                        
+                    },
+                    smooth: true,
+                    // symbolSize: 25,
+                    itemStyle: {
+                        color: '#3366ff'
+                    },
+                    areaStyle: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#95bbff'
+                        }, {
+                            offset: 1,
+                            color: 'rgba(92, 133, 255, 0)'
+                        }])
+                    },
+                    data: this.yData,
+                    label: {
+                        show: false,
+                        position: 'top',
+                        color: "black",
+                        fontSize: 12
+                    }
+                },
+            
+            ],
+            animationEasing: 'elasticOut',
+            animationDelayUpdate: (idx) => idx * 5,
+        }
         alert('Goal added successfully!')
     }
+
+    onChartInit(ec) {
+        this.echartsInstance = ec;
+    }
+
+    onChartClick(ec) {
+        console.log(ec);
+        this.isLifePlanModalShow = true;
+    }
+
+    closeLifePlan(){
+        this.isLifePlanModalShow = false;
+    }
+      
     
     // PLUS MINUS INPUT
     public amount: number = 1;

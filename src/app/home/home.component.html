@@ -15,7 +15,7 @@
                     <!-- chart -->
                     <div class="drag-container" >
                         <div  mwlDroppable (drop)="this.droppedData = $event.dropData">
-                            <div id="main" echarts [options]="options" class="demo-chart" style="width:100%;height: 430px;"></div>  
+                            <div #main echarts (chartInit)="onChartInit($event)" (chartClick)="onChartClick($event)" [options]="options" class="demo-chart" style="width:100%;height: 430px;"></div>  
                         </div>
 
                         <!-- popup add goal -->
@@ -70,6 +70,28 @@
                                 <div class="k-ag-footer">
                                     <button class="btn btn-primary mr-2" (click)="clearModal()">Clear</button>
                                     <button class="btn btn-primary btn-primary-fill" (click)="saveModal()">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- LIfe plan popup -->
+                        <div class="k-ag-wrapper" *ngIf="isLifePlanModalShow">
+                            <div class="k-lp-popup" >
+                                <div class="d-flex">
+                                    <div class="k-input">
+                                        <span class="material-icons">directions_car</span>
+                                        <input type="text" class="form-control" aria-describedby="title" placeholder="Title" value="Buy a House">
+                                    </div>
+                                    <span (click)="closeLifePlan()" class="material-icons k-delete">delete_forever</span>
+                                </div>
+                                <div class="d-flex justify-content-between mt-2">
+                                    <div class="k-progress">
+                                        <span>Amount (38%)</span>
+                                        <p class="mt-2"><ngb-progressbar type="primary" [value]="38" height=".4rem"></ngb-progressbar></p>
+                                    </div>
+                                    <div class="k-progress">
+                                        <span>Timeline (80%)</span>
+                                        <p class="mt-2"><ngb-progressbar type="primary" [value]="80" height=".4rem"></ngb-progressbar></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

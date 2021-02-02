@@ -252,7 +252,53 @@ section{
         }
     }
 }
-
+// GOAL POPUP
+.k-lp-popup{
+    width: 260px;
+    height: 115px;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 4px 4px 8px 0 rgba(191, 202, 217, 0.9), -4px -4px 8px 0 #ffffff;
+    border: solid 1px #ebeff5;
+    background-image: linear-gradient(168deg, #c2dfff 14%, #79bbff 84%);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.33;
+    letter-spacing: 0.2px;
+    color: #ffffff;
+    .k-input{
+        position: relative;
+        .material-icons{
+            position: absolute;
+            left: 5px;
+            top: 7px;
+        }
+    }
+    .k-delete{
+        width: 40px;
+        height: 40px;
+        margin: 1px 0 12px 8px;
+        padding: 8px;
+        object-fit: contain;
+        border-radius: 4px;
+        background-color: #60afff;
+        cursor: pointer;
+    }
+    .k-input input{
+        object-fit: contain;
+        border-radius: 4px;
+        box-shadow: inset 2px 2px 4px 0 rgba(15, 31, 77, 0.2), inset -2px -2px 4px 0 #ffffff;
+        background-color: #60afff;
+        color: #fff;
+        padding-left: 40px;
+    }
+  
+    .k-progress{
+        width: 90%;
+        margin: 0 5px;
+    }
+    
+}
 // MEDIA
 @media(max-width: 992px){
     .col-sm-3,.col-sm-9 {
