@@ -180,25 +180,19 @@ export class HomeComponent implements OnInit {
     ]
     
     // DRAG & DROP
-    pointArr: any;
-
     dragEnd(event) {
         this.isModalShow = true;
-        console.log('Element was dragged', event);
-        if(event){
-            this.pointArr = event;
-        }    
+        console.log('Element was dragged', event); 
     }
-    
     drop(event){
         this.isModalShow = true;
         console.log('Element was drop', event);
     }
+
     // MODAL CLICKS
     clearModal(){
         this.isModalShow = false;
-    }
-    
+    }    
     saveModal(){
         this.isModalShow = false;
         alert('Goal added successfully!')

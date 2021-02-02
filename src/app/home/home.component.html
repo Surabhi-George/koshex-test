@@ -1,16 +1,8 @@
 <section class="min-vh-100">
     <div class="container">
         <div class="row">
+            <!-- LEFT part -->
             <div class="col-sm-9 pl-0">
-
-                <!-- <div >Drag me!</div>
-    <div mwlDroppable (drop)="this.droppedData = $event.dropData">
-      <span [hidden]="droppedData">Drop here</span>
-      <span [hidden]="!droppedData"
-        >Item dropped here with data: "{{ droppedData }}"!</span
-      >
-    </div> -->
-
                 <div class="k-box k-lft">
                     <div class="d-flex justify-content-between">
                         <div>
@@ -85,11 +77,9 @@
                 </div>
             </div>
 
-            
-
-
+            <!-- RIGHT part -->
             <div class="col-sm-3 pl-0">
-                <div class="k-box k-rgt-data p-3">
+                <div class="k-box k-rgt-data p-3" [style.background-image]="'url(assets/img/rgt_banner.png)'">
                     <img src="assets/img/edit.png" alt="The icon for edit" class="k-edit" width="">
                     <div class="d-flex">
                         <div class="mr-5">

@@ -27,6 +27,9 @@ section{
     color: $color;
     min-width: 285px;
     position: relative;
+    // background: #ffe1f7 url(assets/img/rgt_banner.png);
+    background-repeat: no-repeat;
+    background-position: bottom right;
     .k-edit{
         position: absolute;
         right: 15px;
