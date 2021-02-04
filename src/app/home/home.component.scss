@@ -255,7 +255,7 @@ section{
 // GOAL POPUP
 .k-lp-popup{
     width: 260px;
-    height: 115px;
+    min-height: 115px;
     padding: 10px;
     border-radius: 8px;
     box-shadow: 4px 4px 8px 0 rgba(191, 202, 217, 0.9), -4px -4px 8px 0 #ffffff;
@@ -317,6 +317,11 @@ section{
         display: block !important;
         div{
             margin-bottom: 10px;
+        }
+    }
+    .k-lp-popup{
+        .d-flex{
+            display: flex !important;
         }
     }
 }

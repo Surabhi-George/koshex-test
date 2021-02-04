@@ -13,10 +13,14 @@ export class HomeComponent implements OnInit {
     options: any;
     isModalShow : boolean = false;
     isLifePlanModalShow : boolean = false;
-    model: NgbDateStruct;
-    droppedData: string;
+    droppedData: string;    
+    error: any;
+    public goalTitle :  any;        
+    public amount: any = 0;
+    public year: any = 0;
     public xData : any = [];
     public yData : any = [];
+    public cData : any = [];
     symbolPath : any = [];
     echartsInstance: any;
 
@@ -24,12 +28,23 @@ export class HomeComponent implements OnInit {
 
     ngOnInit(): void {
 
-        this.yData = [150, 400, 750, 450, 170, 400, 750, 1500, 550, 290,400,90];
-        this.xData = [28,32,36,40,44,48,52,56,60,70,80,90];
+        this.cData = [
+            [10,50,''],
+            [28,150,'assets/img/c_house.png'],
+            [32,400,''],
+            [36,750,''],
+            [40,450,''],
+            [44,170,'assets/img/c_kids.png'],
+            [48,400,''],
+            [52,750,''],
+            [56,1500,''],
+            [60,550,'assets/img/c_beach.png'],
+            [70,290,''],
+            [80,400,'assets/img/c_hospital.png'],
+            [90,90,'']
+        ]
+        var symbolPath1 = this.cData;
 
-
-        this.symbolPath = ['','assets/img/c_house.png','','','assets/img/c_kids.png','','','assets/img/c_beach.png','assets/img/c_kids.png','','assets/img/c_hospital.png',''];
-         var symbolPath1 = this.symbolPath;
         this.options = {
             tooltip: {
                 trigger: 'item',
@@ -72,7 +87,7 @@ export class HomeComponent implements OnInit {
                 {
                     type: 'category',
                     boundaryGap: false,
-                    data: this.xData
+                    // data: this.xData
                 }
             ],
             yAxis:{
@@ -96,16 +111,16 @@ export class HomeComponent implements OnInit {
                     type: 'line',
                     sampling: 'lttb',
                     // symbol: 'circle' ,
-                    symbol: function(yData,params){
-                        if(symbolPath1[params.dataIndex] == '' || symbolPath1[params.dataIndex] == "undefined"){
+                    symbol: function(cData,params){
+                        if(symbolPath1[params.dataIndex][2] == '' || symbolPath1[params.dataIndex][2] == "undefined"){
                             
-                        }else{
-                            var d = 'image://' + symbolPath1[params.dataIndex];                   
+                        }else{                            
+                            var d = 'image://' + symbolPath1[params.dataIndex][2];                   
                             return d;
                         }                        
                     },
-                    symbolSize: function(yData,params){
-                        if(symbolPath1[params.dataIndex] == '' || symbolPath1[params.dataIndex] == "undefined"){
+                    symbolSize: function(cData,params){
+                        if(symbolPath1[params.dataIndex][2] == '' || symbolPath1[params.dataIndex][2] == "undefined"){
                             return 10;
                         }else{
                             return 33;
@@ -125,7 +140,7 @@ export class HomeComponent implements OnInit {
                             color: 'rgba(92, 133, 255, 0)'
                         }])
                     },
-                    data: this.yData,
+                    data: this.cData,
                     label: {
                         show: false,
                         position: 'top',
@@ -198,13 +213,27 @@ export class HomeComponent implements OnInit {
         this.isModalShow = false;
     }    
     saveModal(){
-        this.isModalShow = false;
-        var d = this.xData.slice(-1)[0];
-        this.xData.push(d + 10);
-        this.yData.push(600);
-        this.symbolPath.push('assets/img/c_house.png');
-        var sPath = this.symbolPath;
+        if(!this.goalTitle){
+            this.error = 'Please enter your goal title';
+            return;
+        }
+        if(!this.amount || this.amount == 0){
+            this.error = 'Please add amount';
+            return;
+        }
+        if(!this.year || this.year == 0){
+            this.error = 'Please add goal year';
+            return;
+        }
+        
+        this.isModalShow = false;       
 
+        const img = 'assets/img/c_beach.png';
+        this.cData.push([this.year,this.amount, img]);
+        this.cData.sort();
+        var sPath = this.cData;
+
+        // this.resizeChart();
         this.options = {
             tooltip: {
                 trigger: 'item',
@@ -247,7 +276,7 @@ export class HomeComponent implements OnInit {
                 {
                     type: 'category',
                     boundaryGap: false,
-                    data: this.xData
+                    // data: this.xData
                 }
             ],
             yAxis:{
@@ -271,16 +300,16 @@ export class HomeComponent implements OnInit {
                     type: 'line',
                     sampling: 'lttb',
                     // symbol: 'circle' ,
-                    symbol: function(yData,params){
-                        if(sPath[params.dataIndex] == '' || sPath[params.dataIndex] == "undefined"){
+                    symbol: function(cData,params){
+                        if(sPath[params.dataIndex][2] == '' || sPath[params.dataIndex][2] == "undefined"){
                             
-                        }else{
-                            var d = 'image://' + sPath[params.dataIndex];                   
+                        }else{                            
+                            var d = 'image://' + sPath[params.dataIndex][2];                   
                             return d;
                         }                        
                     },
-                    symbolSize: function(yData,params){
-                        if(sPath[params.dataIndex] == '' || sPath[params.dataIndex] == "undefined"){
+                    symbolSize: function(cData,params){
+                        if(sPath[params.dataIndex][2] == '' || sPath[params.dataIndex][2] == "undefined"){
                             return 10;
                         }else{
                             return 33;
@@ -300,7 +329,7 @@ export class HomeComponent implements OnInit {
                             color: 'rgba(92, 133, 255, 0)'
                         }])
                     },
-                    data: this.yData,
+                    data: this.cData,
                     label: {
                         show: false,
                         position: 'top',
@@ -313,34 +342,57 @@ export class HomeComponent implements OnInit {
             animationEasing: 'elasticOut',
             animationDelayUpdate: (idx) => idx * 5,
         }
-        alert('Goal added successfully!')
+        
+        alert('Goal added successfully!');
+        this.error = '';
+        this.amount = 0;
+        this.goalTitle = '';
+        this.year = 0;
     }
 
     onChartInit(ec) {
         this.echartsInstance = ec;
     }
 
-    onChartClick(ec) {
-        console.log(ec);
-        this.isLifePlanModalShow = true;
+      
+    resizeChart() {
+        if (this.echartsInstance) {
+          this.echartsInstance.resize();
+        }
     }
 
+    // active event click
+    onChartClick(ec) {
+        if(ec.value[2] != ""){
+            this.isLifePlanModalShow = true;
+        }        
+    }
     closeLifePlan(){
         this.isLifePlanModalShow = false;
     }
       
     
     // PLUS MINUS INPUT
-    public amount: number = 1;
     plusInput(qdata){
         this.amount = qdata + 1;
     }
     minusInput(qdata){
         this.amount = qdata - 1;
         if(this.amount == 0){
-            this.amount = 1;
+            this.amount = 0;
         }
     };
+    plusYearInput(qdata){
+        this.year = qdata + 1;
+    }
+    minusYearInput(qdata){
+        this.year = qdata - 1;
+        if(this.year == 0){
+            this.year = 0;
+        }
+    };
+
+    // popup goal priority
     view_pills = 1;
     changeTab = function(tab) {
         this.view_pills = tab;
