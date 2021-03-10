@@ -18,7 +18,7 @@
                     <div class="drag-container" >
 
                         <div  mwlDroppable (drop)="this.droppedData = $event.dropData">
-                            <div #main id="main" echarts (chartInit)="onChartInit($event)" (chartClick)="onChartClick($event)" [options]="options" class="demo-chart" style="width:100%;height: 430px;"></div>  
+                            <div #main id="main" echarts (chartInit)="onChartReady($event)" (chartClick)="onChartClick($event)" [options]="options" class="demo-chart" style="width:100%;height: 430px;"></div>  
                         </div>
 
                         <!-- popup add goal -->

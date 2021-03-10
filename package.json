@@ -25,6 +25,7 @@
     "angular-draggable-droppable": "^4.6.0",
     "bootstrap": "^4.6.0",
     "echarts": "^5.0.1",
+    "echarts-gl": "^2.0.1",
     "ngx-echarts": "^6.0.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
